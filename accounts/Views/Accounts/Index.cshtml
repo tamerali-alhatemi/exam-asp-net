@@ -1,0 +1,56 @@
+﻿@model IEnumerable<accounts.Models.DisplayAccounts>
+
+@{
+    ViewBag.Title = "Accounts";
+    if (Session["Name"] == null)
+    {
+        Response.Redirect("~/Users/Login", false);
+    }
+}
+
+<h2>Accounts</h2>
+<p>
+    @Html.ActionLink("Create New", "Create" ,"Accounts", new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Account Name
+        </th>
+        <th>
+           Account Number
+        </th>
+        <th>
+           Main Account
+        </th>
+        <th>
+            Account Currencies
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FatherName)
+        </td>
+        <td>
+            @foreach(var item2 in item.currncies)
+            {
+                <p>@item2.Name <span>(@item2.symbol)</span></p>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Account_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Account_id })
+        </td>
+    </tr>
+}
+
+</table>
